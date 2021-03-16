@@ -19,14 +19,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
         initViews();
         getDateFromSharedPref();
     }
+    private void init(){
+        mInputNote = findViewById(R.id.input_note);
+        mBtnSaveNote = findViewById(R.id.btn_save_note);
+    }
     private void initViews() {
-        mInputNote = findViewById(R.id.inputNote);
-        mBtnSaveNote = findViewById(R.id.btnSaveNote);
 
-        myNoteSharedPref = getSharedPreferences("MyNote", MODE_PRIVATE);
+        myNoteSharedPref = getSharedPreferences(String.valueOf(R.string.name), MODE_PRIVATE);
         mBtnSaveNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                     String noteTxt = mInputNote.getText().toString();
                     myEditor.putString(NOTE_TEXT, noteTxt);
                     myEditor.apply();
-                    Toast.makeText(MainActivity.this, "данные сохранены", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,R.string.saved_info , Toast.LENGTH_LONG).show();
                 }
             });
     }
